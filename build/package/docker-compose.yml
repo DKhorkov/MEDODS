@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+#  medods:
+#    container_name: medods
+#    image: medods
+#    build:
+#      context: ../..
+#      dockerfile: ./build/package/Dockerfile
+#    ports:
+#      - "8070:8070"
+#    depends_on:
+#      - database
+#    volumes:
+#      - ../../logs/:/app/logs/
+
+  database:
+    container_name: database
+    hostname: database
+    image: postgres
+    restart: always
+    env_file:
+      - ../../.env
+    volumes:
+      - ../../postgres_data:/var/lib/postgresql/data
+      - ../../postgres_backups:/backups
+      - ../../scripts/postgres:/scripts
+    ports:
+      - "5432:5432"

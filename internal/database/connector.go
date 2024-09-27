@@ -3,8 +3,9 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	"github.com/DKhorkov/hmtm-sso/pkg/logging"
 	"log/slog"
+
+	"github.com/DKhorkov/hmtm-sso/pkg/logging"
 
 	customerrors "github.com/DKhorkov/medods/internal/errors"
 
@@ -46,7 +47,7 @@ func (connector *CommonDBConnector) GetConnection() *sql.DB {
 
 func (connector *CommonDBConnector) GetTransaction() (*sql.Tx, error) {
 	if connector.Connection == nil {
-		return nil, &customerrors.NilDBConnectionError{}
+		return nil, customerrors.NilDBConnectionError{}
 	}
 
 	return connector.Connection.Begin()

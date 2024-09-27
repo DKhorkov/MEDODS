@@ -1,7 +1,7 @@
 package mocks
 
 //
-//import (
+// import (
 //	"time"
 //
 //	"github.com/DKhorkov/medods/entities"
@@ -9,11 +9,11 @@ package mocks
 //	customerrors "github.com/DKhorkov/medods/internal/errors"
 //)
 //
-//type MockedAuthRepository struct {
+// type MockedAuthRepository struct {
 //	UsersStorage map[int]*entities.User
 //}
 //
-//func (repo *MockedAuthRepository) RegisterUser(userData entities.RegisterUserDTO) (int, error) {
+// func (repo *MockedAuthRepository) RegisterUser(userData entities.RegisterUserDTO) (int, error) {
 //	var user entities.User
 //	user.Email = userData.Credentials.Email
 //	user.ID = len(repo.UsersStorage) + 1
@@ -24,7 +24,7 @@ package mocks
 //	return user.ID, nil
 //}
 //
-//func (repo *MockedAuthRepository) GetUserByID(id int) (*entities.User, error) {
+// func (repo *MockedAuthRepository) GetUserByID(id int) (*entities.User, error) {
 //	user := repo.UsersStorage[id]
 //	if user != nil {
 //		return user, nil
@@ -33,7 +33,7 @@ package mocks
 //	return nil, &customerrors.UserNotFoundError{}
 //}
 //
-//func (repo *MockedAuthRepository) GetAllUsers() ([]*entities.User, error) {
+// func (repo *MockedAuthRepository) GetAllUsers() ([]*entities.User, error) {
 //	var users []*entities.User
 //	for _, user := range repo.UsersStorage {
 //		users = append(users, user)
@@ -42,7 +42,7 @@ package mocks
 //	return users, nil
 //}
 //
-//func (repo *MockedAuthRepository) GetUserByEmail(email string) (*entities.User, error) {
+// func (repo *MockedAuthRepository) GetUserByEmail(email string) (*entities.User, error) {
 //	for _, user := range repo.UsersStorage {
 //		if user.Email == email {
 //			return user, nil

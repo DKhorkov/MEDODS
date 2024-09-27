@@ -20,7 +20,7 @@ func GenerateJWT(data JWTData) (string, error) {
 	token := jwt.New(jwt.GetSigningMethod(data.Algorithm))
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
-		return "", &customerrors.JWTClaimsError{}
+		return "", customerrors.JWTClaimsError{}
 	}
 
 	claims["GUID"] = data.GUID
@@ -36,12 +36,12 @@ func ParseJWT(tokenString, secretKey string) (JWTData, error) {
 	})
 
 	if err != nil || !token.Valid {
-		return JWTData{}, &customerrors.InvalidJWTError{}
+		return JWTData{}, customerrors.InvalidJWTError{}
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
-		return JWTData{}, &customerrors.JWTClaimsError{}
+		return JWTData{}, customerrors.JWTClaimsError{}
 	}
 
 	data := JWTData{

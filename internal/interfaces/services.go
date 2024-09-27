@@ -1,11 +1,16 @@
 package interfaces
 
 import (
-	"github.com/DKhorkov/medods/internal/entities"
 	"time"
+
+	"github.com/DKhorkov/medods/internal/entities"
 )
 
 type AuthService interface {
-	CreateRefreshToken(GUID, value string, TTL time.Time) (int, error)
-	GetRefreshTokenByValue(value string) (*entities.RefreshToken, error)
+	CreateRefreshToken(guid, value string, ttl time.Time) (int, error)
+	GetRefreshTokenByID(id int) (*entities.RefreshToken, error)
+}
+
+type UsersService interface {
+	GetUserEmail(guid string) (string, error)
 }

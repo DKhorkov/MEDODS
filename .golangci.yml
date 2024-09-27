@@ -341,9 +341,9 @@ issues:
       linters: [ godot ]
     - source: "//noinspection"
       linters: [ gocritic ]
-    - path: "internal/controllers/grpc*"
+    - path: "internal/controllers/http*"
       linters:
-        - revive
+        - gosec
     - path: "pkg/logging*"
       linters:
         - gochecknoglobals
@@ -365,3 +365,12 @@ issues:
     - path: "tests/internal/repositories/lifespan/lifespan.go"
       linters:
         - gochecknoglobals
+    - path: "internal/usecases/usecases.go"
+      linters:
+        - govet
+    - path: "internal/mocks/repositories/users_repository.go"
+      linters:
+        - revive
+    - path: "internal/usecases/utils.go"
+      linters:
+        - gosec

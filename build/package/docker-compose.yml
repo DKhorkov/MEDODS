@@ -1,18 +1,18 @@
 version: '3'
 
 services:
-#  medods:
-#    container_name: medods
-#    image: medods
-#    build:
-#      context: ../..
-#      dockerfile: ./build/package/Dockerfile
-#    ports:
-#      - "8070:8070"
-#    depends_on:
-#      - database
-#    volumes:
-#      - ../../logs/:/app/logs/
+  medods:
+    container_name: medods
+    image: medods
+    build:
+      context: ../..
+      dockerfile: ./build/package/Dockerfile
+    ports:
+      - "8070:8070"
+    depends_on:
+      - database
+    volumes:
+      - ../../logs/:/app/logs/
 
   database:
     container_name: database

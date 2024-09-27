@@ -1,13 +1,18 @@
 package interfaces
 
 import (
-	"github.com/DKhorkov/medods/internal/entities"
 	"time"
+
+	"github.com/DKhorkov/medods/internal/entities"
 )
 
 type AuthRepository interface {
-	CreateRefreshToken(GUID, value string, TTL time.Time) (int, error)
-	GetRefreshTokenByValue(value string) (*entities.RefreshToken, error)
-	GetRefreshTokenByGUID(GUID string) (*entities.RefreshToken, error)
+	CreateRefreshToken(guid, value string, ttl time.Time) (int, error)
+	GetRefreshTokenByID(id int) (*entities.RefreshToken, error)
+	GetRefreshTokenByGUID(guid string) (*entities.RefreshToken, error)
 	DeleteRefreshToken(token *entities.RefreshToken) error
+}
+
+type UsersRepository interface {
+	GetUserEmail(guid string) (string, error)
 }

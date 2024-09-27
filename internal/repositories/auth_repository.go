@@ -1,19 +1,20 @@
 package repositories
 
 import (
+	"strings"
+	"time"
+
 	"github.com/DKhorkov/medods/internal/database"
 	"github.com/DKhorkov/medods/internal/entities"
 	customerrors "github.com/DKhorkov/medods/internal/errors"
 	"github.com/DKhorkov/medods/internal/interfaces"
-	"strings"
-	"time"
 )
 
 type CommonAuthRepository struct {
 	DBConnector interfaces.DBConnector
 }
 
-func (repo *CommonAuthRepository) CreateRefreshToken(GUID, value string, TTL time.Time) (int, error) {
+func (repo *CommonAuthRepository) CreateRefreshToken(guid, value string, ttl time.Time) (int, error) {
 	var refreshTokenID int
 	connection := repo.DBConnector.GetConnection()
 	err := connection.QueryRow(
@@ -22,9 +23,9 @@ func (repo *CommonAuthRepository) CreateRefreshToken(GUID, value string, TTL tim
 			VALUES ($1, $2, $3)
 			RETURNING refresh_tokens.id
 		`,
-		GUID,
+		guid,
 		value,
-		TTL,
+		ttl,
 	).Scan(&refreshTokenID)
 
 	if err != nil {
@@ -34,7 +35,7 @@ func (repo *CommonAuthRepository) CreateRefreshToken(GUID, value string, TTL tim
 	return refreshTokenID, nil
 }
 
-func (repo *CommonAuthRepository) GetRefreshTokenByValue(value string) (*entities.RefreshToken, error) {
+func (repo *CommonAuthRepository) GetRefreshTokenByID(id int) (*entities.RefreshToken, error) {
 	refreshToken := &entities.RefreshToken{}
 	columns := database.GetEntityColumns(refreshToken)
 	connection := repo.DBConnector.GetConnection()
@@ -42,21 +43,21 @@ func (repo *CommonAuthRepository) GetRefreshTokenByValue(value string) (*entitie
 		`
 			SELECT *
 			FROM refresh_tokens AS rt
-			WHERE rt.value = $1 
+			WHERE rt.id = $1 
 			  AND rt.ttl > CURRENT_TIMESTAMP
 			  AND rt.deleted_at IS NULL
 		`,
-		value,
+		id,
 	).Scan(columns...)
 
 	if err != nil && !strings.Contains(err.Error(), "storing driver.Value type <nil> into type *time.Time") {
-		return nil, &customerrors.RefreshTokenNotFoundError{}
+		return nil, customerrors.RefreshTokenNotFoundError{}
 	}
 
 	return refreshToken, nil
 }
 
-func (repo *CommonAuthRepository) GetRefreshTokenByGUID(GUID string) (*entities.RefreshToken, error) {
+func (repo *CommonAuthRepository) GetRefreshTokenByGUID(guid string) (*entities.RefreshToken, error) {
 	refreshToken := &entities.RefreshToken{}
 	columns := database.GetEntityColumns(refreshToken)
 	connection := repo.DBConnector.GetConnection()
@@ -68,11 +69,11 @@ func (repo *CommonAuthRepository) GetRefreshTokenByGUID(GUID string) (*entities.
 			  AND rt.ttl > CURRENT_TIMESTAMP
 			  AND rt.deleted_at IS NULL
 		`,
-		GUID,
+		guid,
 	).Scan(columns...)
 
 	if err != nil && !strings.Contains(err.Error(), "storing driver.Value type <nil> into type *time.Time") {
-		return nil, &customerrors.RefreshTokenNotFoundError{}
+		return nil, customerrors.RefreshTokenNotFoundError{}
 	}
 
 	return refreshToken, nil

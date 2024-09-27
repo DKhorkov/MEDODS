@@ -2,9 +2,10 @@ package config
 
 import (
 	"fmt"
-	"github.com/DKhorkov/hmtm-sso/pkg/logging"
 	"log/slog"
 	"time"
+
+	"github.com/DKhorkov/hmtm-sso/pkg/logging"
 
 	"github.com/DKhorkov/hmtm-bff/pkg/loadenv"
 )
@@ -42,6 +43,12 @@ func New() *Config {
 		Logging: LoggingConfig{
 			Level:       logging.LogLevels.DEBUG,
 			LogFilePath: fmt.Sprintf("logs/%s.log", time.Now().Format("02-01-2006")),
+		},
+		SMTP: SMTPConfig{
+			Host:     loadenv.GetEnv("SMTP_HOST", "smtp.freesmtpservers.com"),
+			Port:     loadenv.GetEnvAsInt("SMTP_PORT", 25),
+			Login:    loadenv.GetEnv("SMTP_LOGIN", "smtp"),
+			Password: loadenv.GetEnv("SMTP_PASSWORD", "smtp"),
 		},
 	}
 }
@@ -84,9 +91,17 @@ type LoggingConfig struct {
 	LogFilePath string
 }
 
+type SMTPConfig struct {
+	Host     string
+	Port     int
+	Login    string
+	Password string
+}
+
 type Config struct {
 	HTTP      HTTPConfig
 	Security  SecurityConfig
 	Databases DatabasesConfig
 	Logging   LoggingConfig
+	SMTP      SMTPConfig
 }

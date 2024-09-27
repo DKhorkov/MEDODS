@@ -2,10 +2,11 @@ package httpcontroller
 
 import (
 	"fmt"
-	"github.com/DKhorkov/hmtm-sso/pkg/logging"
-	"github.com/DKhorkov/medods/internal/interfaces"
 	"log/slog"
 	"net/http"
+
+	"github.com/DKhorkov/hmtm-sso/pkg/logging"
+	"github.com/DKhorkov/medods/internal/interfaces"
 )
 
 type Controller struct {
@@ -48,7 +49,7 @@ func (controller *Controller) Stop() {
 // New creates an instance of HTTP Controller.
 func New(host string, port int, useCases interfaces.UseCases, logger *slog.Logger) *Controller {
 	server := http.NewServeMux()
-	server.HandleFunc("/tokens", GetTokensHandler(useCases))
+	server.HandleFunc("/tokens", TokensHandler{UseCases: useCases, Logger: logger}.GetHandleFunc())
 
 	return &Controller{
 		httpServer: server,

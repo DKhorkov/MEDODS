@@ -1,40 +1,23 @@
-## Usage
+Solution of the [test task](https://medods.notion.site/Test-task-BackDev-623508ed85474f48a721e43ab00e9916) 
+for [MEDODS](http://medods.ru/) company.
 
-### Run via docker:
+## Functionality:
 
-To run app and it's dependencies in docker, use next command:
-
-```bash
-task -d scripts docker_prod -v
-```
-
-### Run via source files:
-
-To run application via source files, use next commands:
-
-```shell
-go run ./cmd/medods/main.go
-```
-
-## gRPC:
-
-To setup protobuf, use next command:
-
-```shell
-task -d scripts setup_proto -v
-```
-
-To generate files from .proto, use next command:
-
-```shell
-task -d scripts grpc_generate -v
-```
-
-## Linters
-
-```shell
- task -d scripts linters -v
-```
+1) <b>Create tokens:</b><br>
+Request:
+![img.png](assets/create_tokens_request.png)
+Refresh token in response body:
+![img_1.png](assets/response_body.png)
+Access token in Authorization Header:
+![img_2.png](assets/response_headers.png)
+2) <b>Refresh tokens:</b><br>
+Request:
+![img_3.png](assets/refresh_tokens_request_body.png)
+![img_4.png](assets/refresh_tokens_request_header.png)
+Refresh token in response body:
+![img_1.png](assets/response_body.png)
+Access token in Authorization Header:
+![img_2.png](assets/response_headers.png)
 
 ## Tests
 
@@ -43,6 +26,12 @@ recorded to ```tests/coverage``` folder:
 
 ```shell
 task -d scripts tests -v
+```
+
+## Linters
+
+```shell
+ task -d scripts linters -v
 ```
 
 ## Migrations

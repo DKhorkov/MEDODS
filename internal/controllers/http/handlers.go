@@ -60,7 +60,7 @@ func (handler TokensHandler) createTokensHandler(
 
 	guid, found := requestBody["GUID"]
 	if !found {
-		err := customerrors.ParameterRequiredError{Message: "GUID"}
+		err := customerrors.ParameterRequiredError{Parameter: "GUID"}
 		handler.Logger.Error(
 			"Parameter required",
 			"Traceback",
@@ -108,7 +108,7 @@ func (handler TokensHandler) refreshTokensHandler(
 
 	authorizationHeader := request.Header.Get("Authorization")
 	if authorizationHeader == "" {
-		err := customerrors.HeaderError{Message: "Authorization"}
+		err := customerrors.HeaderError{Header: "Authorization"}
 		handler.Logger.Error(
 			"Authorization header required",
 			"Traceback",
@@ -123,7 +123,7 @@ func (handler TokensHandler) refreshTokensHandler(
 
 	authorizationHeaderValues := strings.Split(authorizationHeader, " ")
 	if len(authorizationHeaderValues) != 2 || authorizationHeaderValues[0] != "Bearer" {
-		err := customerrors.HeaderError{Message: "Authorization"}
+		err := customerrors.HeaderError{Header: "Authorization"}
 		handler.Logger.Error(
 			"Authorization header is invalid",
 			"Traceback",
@@ -140,7 +140,7 @@ func (handler TokensHandler) refreshTokensHandler(
 
 	encodedRefreshToken, found := requestBody["refreshToken"]
 	if !found {
-		err := customerrors.ParameterRequiredError{Message: "refreshToken"}
+		err := customerrors.ParameterRequiredError{Parameter: "refreshToken"}
 		handler.Logger.Error(
 			"Parameter required",
 			"Traceback",

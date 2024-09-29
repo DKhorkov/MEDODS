@@ -30,21 +30,21 @@ func GenerateJWT(data JWTData) (string, error) {
 	return token.SignedString([]byte(data.SecretKey))
 }
 
-func ParseJWT(tokenString, secretKey string) (JWTData, error) {
+func ParseJWT(tokenString, secretKey string) (*JWTData, error) {
 	token, err := jwt.ParseWithClaims(tokenString, jwt.MapClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secretKey), nil
 	})
 
 	if err != nil || !token.Valid {
-		return JWTData{}, customerrors.InvalidJWTError{}
+		return nil, customerrors.InvalidJWTError{}
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
-		return JWTData{}, customerrors.JWTClaimsError{}
+		return nil, customerrors.JWTClaimsError{}
 	}
 
-	data := JWTData{
+	data := &JWTData{
 		GUID:  claims["GUID"].(string),
 		IP:    claims["IP"].(string),
 		Value: claims["Value"].(string),

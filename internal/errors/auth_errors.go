@@ -13,12 +13,12 @@ func (e RefreshTokenNotFoundError) Error() string {
 }
 
 type ParameterRequiredError struct {
-	Message string
+	Parameter string
 }
 
 func (e ParameterRequiredError) Error() string {
-	if e.Message != "" {
-		return e.Message + " parameter is missing"
+	if e.Parameter != "" {
+		return e.Parameter + " parameter is missing"
 	}
 
 	return "required parameter is missing"
@@ -49,12 +49,12 @@ func (e AccessTokenDoesNotBelongToRefreshTokenError) Error() string {
 }
 
 type HeaderError struct {
-	Message string
+	Header string
 }
 
 func (e HeaderError) Error() string {
-	if e.Message != "" {
-		return e.Message + " Header is missing or invalid"
+	if e.Header != "" {
+		return e.Header + " Header is missing or invalid"
 	}
 
 	return "required Header is missing or invalid"

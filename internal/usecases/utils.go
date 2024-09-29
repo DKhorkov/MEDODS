@@ -55,18 +55,4 @@ func sendEmail(
 			err,
 		)
 	}
-
-	// address := fmt.Sprintf("%s:%d", smtpConfig.Host, smtpConfig.Port)
-	// message := []byte(subject + body)
-	// auth := smtp.PlainAuth("", smtpConfig.Login, smtpConfig.Password, smtpConfig.Host)
-	//err := smtp.SendMail(address, auth, smtpConfig.Login, emailsTo, message)
-	//if err != nil {
-	//	logger.Error(
-	//		"Failed to send email",
-	//		"Traceback",
-	//		logging.GetLogTraceback(),
-	//		"Error",
-	//		err,
-	//	)
-	//}
 }

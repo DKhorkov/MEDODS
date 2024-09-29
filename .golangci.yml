@@ -374,3 +374,10 @@ issues:
     - path: "internal/usecases/utils.go"
       linters:
         - gosec
+    - path: "tests/*"
+      linters:
+        - mnd
+        - ineffassign
+        - gochecknoglobals
+        - gocognit
+        - testifylint
